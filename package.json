@@ -1,0 +1,71 @@
+{
+	"name": "syzkaller-coverage",
+	"displayName": "Syzkaller coverage overlay for VSCode",
+	"description": "Highlights syzkaller fuzzing coverage",
+	"publisher": "florent-revest",
+	"license": "MIT",
+	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/FlorentRevest/vscode-syzkaller-coverage.git"
+	},
+	"engines": {
+		"vscode": "^1.59.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "syzkaller-coverage.toggle",
+				"title": "Toggle syzkaller coverage"
+			}
+		],
+		"configuration": {
+			"title": "Syzkaller coverage",
+			"properties": {
+				"syzkaller-coverage.url": {
+					"type": "string",
+					"default": "http://127.0.0.1:56741",
+					"description": "URL of the syz-manager instance."
+				},
+				"syzkaller-coverage.polling-period": {
+					"type": "number",
+					"default": 10000,
+					"description": "Period (in miliseconds) at which syz-manager should be polled. Set to -1 to fetch only on activation and avoid polling."
+				},
+				"syzkaller-coverage.status-bar-item": {
+					"type": "boolean",
+					"default": true,
+					"description": "Whether a \"syz cov\" status bar item should be shown."
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"lint": "eslint src --ext ts"
+	},
+	"dependencies": {
+        "axios": "^1.6.2"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.59.0",
+		"@typescript-eslint/eslint-plugin": "^4.14.1",
+		"@typescript-eslint/parser": "^4.14.1",
+		"eslint": "^7.19.0",
+		"glob": "^7.1.6",
+		"typescript": "^4.8.2",
+		"vscode-test": "^1.5.0"
+	}
+}
